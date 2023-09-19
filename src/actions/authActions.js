@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {server} from '../store.js'
 
 import {
     LOGIN_REQUEST,
@@ -34,7 +35,7 @@ export const login = (email, password) => async( dispatch )=>{
             }
         }
 
-        const {data} = await axios.post('/api/v1/login' , {email, password} ,config);
+        const {data} = await axios.post(`${server}/login` , {email, password} ,config);
 
         dispatch({
             type: 'LOGIN_SUCCESS',
@@ -61,7 +62,7 @@ export const register = (userData) => async( dispatch )=>{
             }
         }
 
-        const {data} = await axios.post('/api/v1/register' , userData ,config);
+        const {data} = await axios.post(`${server}/register` , userData ,config);
 
         dispatch({
             type: 'REGISTER_SUCCESS',
@@ -83,7 +84,7 @@ export const loadUser = () => async( dispatch )=>{
             type: 'LOAD_USER_REQUEST'
         })
 
-        const {data} = await axios.get('/api/v1/me' );
+        const {data} = await axios.get(`${server}/me` );
 
         dispatch({
             type: 'LOAD_USER_SUCCESS',
@@ -102,7 +103,7 @@ export const loadUser = () => async( dispatch )=>{
 export const logout = () => async( dispatch )=>{
     try{
      
-        await axios.get('/api/v1/logout' );
+        await axios.get(`${server}/logout`);
 
         dispatch({
             type: 'LOGOUT_SUCCESS', 
@@ -129,7 +130,7 @@ export const forgotPassword = (email) => async( dispatch )=>{
             }
         }
 
-        const {data} = await axios.post('/api/v1/password/forgot', email ,config);
+        const {data} = await axios.post(`${server}/password/forgot`, email ,config);
 
         dispatch({
             type: 'FORGOT_PASSWORD_SUCCESS',
@@ -156,7 +157,7 @@ export const resetPassword = (token, passwords) => async( dispatch )=>{
             }
         }
 
-        const {data} = await axios.put(`/api/v1/password/reset/${token}`, passwords ,config);
+        const {data} = await axios.put(`${server}/password/reset/${token}`, passwords ,config);
 
         dispatch({
             type: 'NEW_PASSWORD_SUCCESS',

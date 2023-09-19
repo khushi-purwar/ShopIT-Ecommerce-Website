@@ -21,6 +21,7 @@ import {
 } from '../constants/orderConstants';
 
 import axios from 'axios';
+import {server} from '../store.js'
 
 // create a new order
 export const createOrder = (orderData)=> async(dispatch) =>{
@@ -35,7 +36,7 @@ export const createOrder = (orderData)=> async(dispatch) =>{
             }
         }
 
-        const {data} = await axios.post('/api/v1/order', orderData, config);
+        const {data} = await axios.post(`${server}/order`, orderData, config);
 
         dispatch({
             type: 'CREATE_ORDER_SUCCESS',
@@ -56,7 +57,7 @@ export const myOrders = ()=> async(dispatch) =>{
             type: 'MY_ORDERS_REQUEST'
         })
 
-        const {data} = await axios.get('/api/v1/orders/me');
+        const {data} = await axios.get(`${server}/orders/me`);
 
         dispatch({
             type: 'MY_ORDERS_SUCCESS',
@@ -77,7 +78,7 @@ export const getOrderDetails = (id)=> async(dispatch) =>{
             type: 'ORDER_DETAILS_REQUEST'
         })
 
-        const {data} = await axios.get(`/api/v1/order/${id}`);
+        const {data} = await axios.get(`${server}/order/${id}`);
 
         dispatch({
             type: 'ORDER_DETAILS_SUCCESS',
@@ -100,7 +101,7 @@ export const allOrders = ()=> async(dispatch) =>{
             type: 'ALL_ORDERS_REQUEST'
         })
 
-        const {data} = await axios.get('/api/v1/admin/orders');
+        const {data} = await axios.get(`${server}/admin/orders`);
 
         dispatch({
             type: 'ALL_ORDERS_SUCCESS',
@@ -127,7 +128,7 @@ export const updateOrder = (id, orderData)=> async(dispatch) =>{
             }
         }
 
-        const {data} = await axios.put(`/api/v1/admin/order/${id}`, orderData, config);
+        const {data} = await axios.put(`${server}/admin/order/${id}`, orderData, config);
 
         dispatch({
             type: 'UPDATE_ORDER_SUCCESS',
@@ -148,7 +149,7 @@ export const deleteOrder = (id)=> async(dispatch) =>{
             type: 'DELETE_ORDER_REQUESTS'
         })
 
-        const {data} = await axios.delete(`/api/v1/admin/order/${id}`);
+        const {data} = await axios.delete(`${server}/admin/order/${id}`);
 
         dispatch({
             type: 'DELETE_ORDER_SUCCESS',

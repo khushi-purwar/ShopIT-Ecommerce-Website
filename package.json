@@ -2,7 +2,6 @@
   "name": "frontend",
   "version": "0.1.0",
   "private": true,
-  "proxy": "https://shopit-5e8j.onrender.com",
   "dependencies": {
     "@stripe/react-stripe-js": "^1.6.0",
     "@stripe/stripe-js": "^1.21.2",

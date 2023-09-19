@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {server} from '../store.js'
 
 import {
     ADD_TO_CART,
@@ -8,7 +9,7 @@ import {
 
 // add item to cart
 export const addItemToCart = (id, quantity) => async( dispatch , getState)=>{
-    const {data} = await axios.get(`/api/v1/product/${id}`);
+    const {data} = await axios.get(`${server}/product/${id}`);
     dispatch({
         type: 'ADD_TO_CART',
         payload: { 

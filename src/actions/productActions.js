@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {server} from '../store.js'
 
 import {
     ALL_PRODUCT_FAILURE,
@@ -34,10 +35,10 @@ export const getProducts = (keyword='', currentPage=1, price, category, ratings 
         })
 
         // price is an array -> price[1,10000] so, price[0] = 1 & price[1] = 10000
-        let route = `/api/v1/products?keyword=${keyword}&page=${currentPage}&price[lte]=${price[1]}&price[gte]=${price[0]}&ratings[gte]=${ratings}`
+        let route = `${server}/products?keyword=${keyword}&page=${currentPage}&price[lte]=${price[1]}&price[gte]=${price[0]}&ratings[gte]=${ratings}`
 
         if(category){
-            route = `/api/v1/products?keyword=${keyword}&page=${currentPage}&price[lte]=${price[1]}&price[gte]=${price[0]}&category=${category}&ratings[gte]=${ratings}`
+            route = `${server}/products?keyword=${keyword}&page=${currentPage}&price[lte]=${price[1]}&price[gte]=${price[0]}&category=${category}&ratings[gte]=${ratings}`
         }
         
         const {data} = await axios.get(route);
@@ -61,7 +62,7 @@ export const getProductDetails = (id)=> async(dispatch) =>{
             type: 'PRODUCT_DETAILS_REQUEST'
         })
 
-        const {data} = await axios.get(`/api/v1/product/${id}`);
+        const {data} = await axios.get(`${server}/product/${id}`);
         
         dispatch({
             type: 'PRODUCT_DETAILS_SUCCESS',
@@ -82,7 +83,7 @@ export const getAdminProducts = ()=> async(dispatch) =>{
             type: 'ADMIN_PRODUCT_REQUESTS'
         })
 
-        const {data} = await axios.get('/api/v1/admin/products');
+        const {data} = await axios.get(`${server}/admin/products`);
 
         dispatch({
             type: 'ADMIN_PRODUCT_SUCCESS',
@@ -109,7 +110,7 @@ export const createProduct = (productData)=> async(dispatch) =>{
             }
         }
 
-        const {data} = await axios.post('/api/v1/admin/product', productData, config);
+        const {data} = await axios.post(`${server}/admin/product`, productData, config);
 
         dispatch({
             type: 'NEW_PRODUCT_SUCCESS',
@@ -130,7 +131,7 @@ export const deleteProduct = (id)=> async(dispatch) =>{
             type: 'DELETE_PRODUCT_REQUESTS'
         })
 
-        const {data} = await axios.delete(`/api/v1/admin/product/${id}`);
+        const {data} = await axios.delete(`${server}/admin/product/${id}`);
 
         dispatch({
             type: 'DELETE_PRODUCT_SUCCESS',
@@ -157,7 +158,7 @@ export const updateProduct = (id, productData)=> async(dispatch) =>{
             }
         }
 
-        const {data} = await axios.put(`/api/v1/admin/product/${id}`, productData, config);
+        const {data} = await axios.put(`${server}/admin/product/${id}`, productData, config);
 
         dispatch({
             type: 'UPDATE_PRODUCT_SUCCESS',
@@ -178,7 +179,7 @@ export const getProductsByCategory = (category)=> async(dispatch) =>{
             type: 'GET_PRODUCT_BY_CATEGORY_REQUEST'
         })
 
-        const {data} = await axios.get(`/api/v1/products/category/${category}`);
+        const {data} = await axios.get(`${server}/products/category/${category}`);
         
         dispatch({
             type: 'GET_PRODUCT_BY_CATEGORY_SUCCESS',

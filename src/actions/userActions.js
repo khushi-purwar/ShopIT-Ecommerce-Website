@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {server} from '../store.js'
 
 import { 
     UPDATE_PROFILE_REQUEST,
@@ -36,7 +37,7 @@ export const updateProfile = (userData) => async( dispatch )=>{
             }
         }
 
-        const {data} = await axios.put('/api/v1/me/update' , userData ,config);
+        const {data} = await axios.put(`${server}/me/update` , userData ,config);
 
         dispatch({
             type: 'UPDATE_PROFILE_SUCCESS',
@@ -64,7 +65,7 @@ export const updatePassword = (passwords) => async( dispatch )=>{
             }
         }
 
-        const {data} = await axios.put('/api/v1/password/update' , passwords ,config);
+        const {data} = await axios.put(`${server}/password/update` , passwords ,config);
 
         dispatch({
             type: 'UPDATE_PASSWORD_SUCCESS',
@@ -86,7 +87,7 @@ export const getAllUsers = ()=> async(dispatch) =>{
             type: 'ALL_USERS_REQUEST'
         })
 
-        const {data} = await axios.get('/api/v1/admin/users');
+        const {data} = await axios.get(`${server}/admin/users`);
 
         dispatch({
             type: 'ALL_USERS_SUCCESS',
@@ -107,7 +108,7 @@ export const getUserDetails = (id)=> async(dispatch) =>{
             type: 'USER_DETAILS_REQUEST'
         })
 
-        const {data} = await axios.get(`/api/v1/admin/user/${id}`);
+        const {data} = await axios.get(`${server}/admin/user/${id}`);
         
         dispatch({
             type: 'USER_DETAILS_SUCCESS',
@@ -128,7 +129,7 @@ export const deleteUser = (id)=> async(dispatch) =>{
             type: 'DELETE_USER_REQUESTS'
         })
 
-        const {data} = await axios.delete(`/api/v1/admin/user/${id}`);
+        const {data} = await axios.delete(`${server}/admin/user/${id}`);
 
         dispatch({
             type: 'DELETE_USER_SUCCESS',
@@ -155,7 +156,7 @@ export const updateUser = (id, userData)=> async(dispatch) =>{
             }
         }
 
-        const {data} = await axios.put(`/api/v1/admin/user/${id}`, userData, config);
+        const {data} = await axios.put(`${server}/admin/user/${id}`, userData, config);
 
         dispatch({
             type: 'UPDATE_USER_SUCCESS',

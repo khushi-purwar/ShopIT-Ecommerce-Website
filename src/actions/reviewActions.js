@@ -12,6 +12,7 @@ import {
 } from '../constants/reviewConstants';
 
 import axios from 'axios';
+import {server} from '../store.js'
 
 // create a new product
 export const newReview = (reviewData)=> async(dispatch) =>{
@@ -26,7 +27,7 @@ export const newReview = (reviewData)=> async(dispatch) =>{
             }
         }
 
-        const {data} = await axios.put('/api/v1/review', reviewData, config);
+        const {data} = await axios.put(`${server}/review`, reviewData, config);
 
         dispatch({
             type: 'NEW_REVIEW_SUCCESS',
@@ -47,7 +48,7 @@ export const getProductReviews = (id)=> async(dispatch) =>{
             type: 'GET_REVIEW_REQUEST'
         })
 
-        const {data} = await axios.get(`/api/v1/reviews?id=${id}`);
+        const {data} = await axios.get(`${server}/reviews?id=${id}`);
 
         dispatch({
             type: 'GET_REVIEW_SUCCESS',
@@ -68,7 +69,7 @@ export const deleteReview = (productId, reviewId)=> async(dispatch) =>{
             type: 'DELETE_REVIEW_REQUESTS'
         })
 
-        const {data} = await axios.delete(`/api/v1/review/?productId=${productId}&reviewId=${reviewId}`);
+        const {data} = await axios.delete(`${server}/review/?productId=${productId}&reviewId=${reviewId}`);
 
         dispatch({
             type: 'DELETE_REVIEW_SUCCESS',
