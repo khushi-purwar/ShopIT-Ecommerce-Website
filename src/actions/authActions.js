@@ -32,7 +32,8 @@ export const login = (email, password) => async( dispatch )=>{
         const config = {
             headers: {
                 'CONTENT-TYPE': 'application/json'
-            }
+            },
+            withCredentials: true
         }
 
         const {data} = await axios.post(`${server}/login` , {email, password} ,config);
